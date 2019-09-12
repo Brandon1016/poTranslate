@@ -66,14 +66,13 @@ def main():
 
 			counter = counter +1
 
-			#print "Processing entry : #"+str(counter)
-			print ("Processed entries: "+str((counter*100)/lenUnTranslated), end="\r")
+			print ("Processed entries: "+str(round((counter*100)/lenUnTranslated, 2))+"%", end="\r")
 
 		print (str(po.percent_translated())+"% of string translation completed.")
 		po.save()
 		
-	except:
-
+	except Exception as e:
+		print(e)
 		sys.exit(1)
 
 #Load the main function at start
