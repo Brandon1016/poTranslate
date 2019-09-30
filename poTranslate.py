@@ -58,16 +58,21 @@ def main():
 		print ("Let's translate: "+str(lenUnTranslated)+" strings.")
 		time.sleep(2)
 		counter = 0
+		good = 0
+		bad = 0
 		for entry in po.untranslated_entries() + po.fuzzy_entries():
 			try:
-				entry.msgstr= translator.translate(entry.msgid, dest='es').text
+				entry.msgstr= translator.translate(entry.msgid, dest=iso).text
+				good = good + 1
 			except:
 				entry.msgstr = ""
+				bad = bad + 1
 
 			counter = counter +1
 
-			print ("Processed entries: "+str(round((counter*100)/lenUnTranslated, 2))+"%", end="\r")
+			print ("Processed entries: "+str(round((counter*100)/lenUnTranslated, 2))+"% - Successful translations: "+str(good)+" - Incompleted translations: "+str(bad), end="\r")
 
+		print("")
 		print (str(po.percent_translated())+"% of string translation completed.")
 		po.save()
 		
